@@ -1,7 +1,11 @@
 {
   "name": "sketch-layer-name",
-  "description": "",
+  "description": "Rename the layer to its style name.",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lianer/sketch-layer-name.git"
+  },
   "engines": {
     "sketch": ">=49.0"
   },
