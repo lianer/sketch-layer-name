@@ -5,7 +5,14 @@
     {
       "name": "rename-to-style-name",
       "identifier": "sketch-layer-name.rename-to-style-name-identifier",
-      "script": "./rename-to-style-name.js"
+      "script": "./rename-to-style-name.js",
+      "handlers": {
+        "run": "renameToStyleName",
+        "onDocumentChanged": "onDocumentChanged",
+        "actions": {
+          "ArtboardChanged.begin": "onArtboardChanged"
+        }
+      }
     }
   ],
   "menu": {
