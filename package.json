@@ -1,7 +1,7 @@
 {
   "name": "sketch-layer-name",
   "description": "Rename the layer to its style name.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "楼云龙 <lianer@live.cn>",
   "repository": {
     "type": "git",
