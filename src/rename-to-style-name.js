@@ -13,31 +13,40 @@ import rename from './rename';
 8. layer.class() === MSLayerGroup 来判断 layer 是一个组还是一个图层
 */
 
+const isFunction = function (fn) {
+  return typeof fn === 'function';
+};
+
 // 递归查找所有子图层（包含入参 layer 本身）
 const getAllSubLayers = function (layer) {
+  const layers = [];
   const recursionFindLayers = function (layer) {
-    const layers = [layer];
-    layer.layers().forEach((_layer) => {
-      layers.push(_layer);
-      if (_layer.class() === MSLayerGroup) {
-        layers.push(...recursionFindLayers(_layer));
-      }
-    });
-    return layers;
+    layers.push(layer);
+    // 判断是否有子图层
+    // 1. 可根据类判断（但这样判断容易缺少类型，未来 Sketch 如果有新增加类型，则兼容性会不太好）
+    //    layer.class() === MSLayerGroup || layer.class() === MSArtboardGroup || layer.class() === MSShapeGroup
+    // 2. 也可根据是否有 layers 函数判断
+    //    typeof layer.layers === 'function'
+    if (isFunction(layer.layers)) {
+      layer.layers().forEach(recursionFindLayers);
+    }
   };
-  return recursionFindLayers(layer);
+  recursionFindLayers(layer);
+  return layers;
 };
 
 // 检查所有图层的共享样式和名称并修改图层名称
 const checkLayersName = function (layers) {
   layers.forEach((layer, i) => {
-    const sharedStyle = layer.sharedStyle();
     const oldName = layer.name();
-    if (sharedStyle) {
-      const styleName = sharedStyle.name();
-      const newName = rename(oldName, styleName);
-      if (newName !== oldName) {
-        layer.name = newName;
+    if (isFunction(layer.sharedStyle)) {
+      const sharedStyle = layer.sharedStyle();
+      if (sharedStyle) {
+        const styleName = sharedStyle.name();
+        const newName = rename(oldName, styleName);
+        if (newName !== oldName) {
+          layer.name = newName;
+        }
       }
     }
   });
