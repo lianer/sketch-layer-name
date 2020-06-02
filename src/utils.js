@@ -10,7 +10,10 @@ export const isFunction = function (fn) {
 };
 
 export const isLayer = function (obj) {
-  return !!obj && isFunction(obj.layers);
+  if (!obj) {
+    return false;
+  }
+  return isFunction(obj.sharedStyle);
 };
 
 // 递归查找所有子图层（包含入参 layer 本身）
@@ -55,7 +58,7 @@ export const rename = function (name, styleName) {
 
 // 检查所有图层的共享样式和名称并修改图层名称
 export const checkLayerName = function (layer) {
-  if (isFunction(layer.sharedStyle)) {
+  if (isLayer(layer)) {
     const sharedStyle = layer.sharedStyle();
     if (sharedStyle) {
       const oldLayerName = layer.name();

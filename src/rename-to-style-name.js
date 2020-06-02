@@ -19,8 +19,8 @@ documentation: https://developer.sketchapp.com/reference/api/
 // 监听文档变化，Sketch 59 之后有的 API
 // Document Changes：https://developer.sketch.com/plugins/document-changes
 export function onDocumentChanged(context) {
-  // console.time('onDocumentChanged');
-  // log('------------ onDocumentChanged begin ------------');
+  console.time('onDocumentChanged');
+  log('------------ onDocumentChanged begin ------------');
 
   const changes = context.actionContext;
   changes.forEach((change) => {
@@ -30,8 +30,8 @@ export function onDocumentChanged(context) {
     }
   });
 
-  // log('------------ onDocumentChanged end ------------');
-  // console.timeEnd('onDocumentChanged');
+  log('------------ onDocumentChanged end ------------');
+  console.timeEnd('onDocumentChanged');
 }
 
 // 点击菜单 插件 -> sketch-layer-name -> rename-to-style-name 按钮，执行重命名
