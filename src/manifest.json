@@ -8,10 +8,7 @@
       "script": "./rename-to-style-name.js",
       "handlers": {
         "run": "renameToStyleName",
-        "onDocumentChanged": "onDocumentChanged",
-        "actions": {
-          "ArtboardChanged.begin": "onArtboardChanged"
-        }
+        "onDocumentChanged": "onDocumentChanged"
       }
     }
   ],
