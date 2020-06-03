@@ -1,5 +1,12 @@
 import sketch from 'sketch';
-import { log, isLayer, getAllSubLayers, checkLayerName } from './utils';
+import {
+  log,
+  info,
+  isLayer,
+  getAllSubLayers,
+  checkLayerName,
+  isFunction,
+} from './utils';
 
 /*
 documentation: https://developer.sketchapp.com/reference/api/
@@ -19,19 +26,65 @@ documentation: https://developer.sketchapp.com/reference/api/
 // 监听文档变化，Sketch 59 之后有的 API
 // Document Changes：https://developer.sketch.com/plugins/document-changes
 export function onDocumentChanged(context) {
-  console.time('onDocumentChanged');
-  log('------------ onDocumentChanged begin ------------');
+  // console.time('onDocumentChanged');
+  // log('------------ onDocumentChanged begin ------------');
 
   const changes = context.actionContext;
-  changes.forEach((change) => {
-    const obj = change.object();
-    if (isLayer(obj)) {
-      checkLayerName(obj);
-    }
-  });
+  const length = changes.length;
+  // log('changes', changes);
 
-  log('------------ onDocumentChanged end ------------');
-  console.timeEnd('onDocumentChanged');
+  for (let i = 0; i < length; i++) {
+    const change = changes[i];
+    const obj = change.object();
+
+    // 查看 change 的属性值
+    // info(
+    //   'change:',
+    //   change,
+    //   '\n',
+
+    //   'change.propertyName:',
+    //   (change.propertyName && change.propertyName()) || null,
+    //   '\n',
+
+    //   'change.property:',
+    //   (change.property && change.property()) || null,
+    //   '\n',
+
+    //   'change.object:',
+    //   obj,
+    //   '\n',
+
+    //   'object.sharedStyle:',
+    //   obj.sharedStyle && obj.sharedStyle(),
+    //   '\n',
+
+    //   'object.description:',
+    //   obj.description(),
+    //   '\n',
+
+    //   'String(change.propertyName()):',
+    //   String(change.propertyName()),
+    //   '\n'
+    // );
+
+    // 根据 change.propertyName === 'sharedStyleID' 精准判断，只有 sharedStyle （共享样式）发生变化的时候才做处理
+    // fix: 解决使用该插件后 Sketch 无法撤销修改的问题
+    // change.propertyName() 返回的是一个特殊的 Object，但可以转成字符串，比如：String(change.propertyName()) === 'sharedStyleID' 是成立的
+    if (
+      obj &&
+      isFunction(change.propertyName) &&
+      String(change.propertyName()) === 'sharedStyleID' &&
+      isLayer(obj)
+    ) {
+      // log('checkLayerName');
+      checkLayerName(obj);
+      break;
+    }
+  }
+
+  // log('------------ onDocumentChanged end ------------');
+  // console.timeEnd('onDocumentChanged');
 }
 
 // 点击菜单 插件 -> sketch-layer-name -> rename-to-style-name 按钮，执行重命名

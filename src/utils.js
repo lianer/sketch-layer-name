@@ -5,6 +5,13 @@ export const log = function (...args) {
   console.log(t, ...args);
 };
 
+export const info = function (...args) {
+  const d = new Date();
+  const f = (v) => (v < 10 ? '0' + v : String(v));
+  const t = `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}`;
+  console.info(t, ...args);
+};
+
 export const isFunction = function (fn) {
   return typeof fn === 'function';
 };
