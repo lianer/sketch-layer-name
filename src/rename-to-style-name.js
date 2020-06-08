@@ -1,12 +1,13 @@
-import sketch from 'sketch';
+import sketch from "sketch";
 import {
   log,
   info,
   isLayer,
   getAllSubLayers,
   checkLayerName,
+  checkLayerNameForDeleteStyleName,
   isFunction,
-} from './utils';
+} from "./utils";
 
 /*
 documentation: https://developer.sketchapp.com/reference/api/
@@ -74,7 +75,7 @@ export function onDocumentChanged(context) {
     if (
       obj &&
       isFunction(change.propertyName) &&
-      String(change.propertyName()) === 'sharedStyleID' &&
+      String(change.propertyName()) === "sharedStyleID" &&
       isLayer(obj)
     ) {
       // log('checkLayerName');
@@ -104,6 +105,25 @@ export function renameToStyleName(context) {
     console.error(e);
   }
 }
+
+// 点击菜单 插件 -> sketch-layer-name -> 还原图层名称 按钮，执行 删除附加的 #图层名称#
+export function deleteStyleName(context) {
+  const { document } = context;
+  try {
+    const pages = document.pages();
+    const layers = [];
+    pages.forEach((page) => {
+      page.artboards().forEach((artboard) => {
+        layers.push(...getAllSubLayers(artboard));
+      });
+    });
+    layers.forEach(checkLayerNameForDeleteStyleName);
+  } catch (e) {
+    document.showMessage(e.message);
+    console.error(e);
+  }
+}
+
 
 // 弃用，监听 ArtboardChanged.begin 事件，并执行重命名
 // export function onArtboardChanged(context) {

@@ -76,3 +76,31 @@ export const checkLayerName = function (layer) {
     }
   }
 };
+
+// 检查所有图层的共享样式和名称并修改图层名称
+export const checkLayerNameForDeleteStyleName = function (layer) {
+  if (isLayer(layer)) {
+    const sharedStyle = layer.sharedStyle();
+    // 不存在以前有sharedStyle 现在没有的状况
+    if (sharedStyle) {
+      const oldLayerName = layer.name();
+      const newLayerName = deletLayerName(oldLayerName);
+      if (newLayerName !== oldLayerName) {
+        layer.name = newLayerName;
+      }
+    }
+  }
+};
+// 删除附加的图层名字  // # core1 #  文本1  =>  //文本1
+export const deletLayerName = function (name) {
+  const leftLimit = '# ';
+  const rightLimit = ' # ';
+  const leftIndex = name.indexOf(leftLimit);
+  const rightIndex = name.indexOf(rightLimit, leftIndex + 1);
+  if (leftIndex > -1 && rightIndex > -1) {
+    return (
+      name.slice(rightIndex + rightLimit.length)
+    );
+  }
+  return  name;
+}

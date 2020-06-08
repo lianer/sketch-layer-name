@@ -3,17 +3,27 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "rename-to-style-name",
+      "name": "一键批量重命名（rename-to-style-name）",
       "identifier": "sketch-layer-name.rename-to-style-name-identifier",
       "script": "./rename-to-style-name.js",
+      "shortcut": "cmd shift d",
       "handlers": {
         "run": "renameToStyleName",
         "onDocumentChanged": "onDocumentChanged"
+      }
+    },
+    {
+      "name": "一键批量去除重命名（delete-style-name）",
+      "identifier": "sketch-layer-name.delete-style-name-identifier",
+      "script": "./rename-to-style-name.js",
+      "handlers": {
+        "run": "deleteStyleName"   
       }
     }
   ],
   "menu": {
     "title": "sketch-layer-name",
-    "items": ["sketch-layer-name.rename-to-style-name-identifier"]
+    "items": ["sketch-layer-name.rename-to-style-name-identifier","sketch-layer-name.delete-style-name-identifier","sketch-layer-name.delete-style-name-identifier1"],
+    "shortcut": "cmd shift d"
   }
 }
