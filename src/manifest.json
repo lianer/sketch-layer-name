@@ -9,7 +9,8 @@
       "shortcut": "cmd shift d",
       "handlers": {
         "run": "renameToStyleName",
-        "onDocumentChanged": "onDocumentChanged"
+        "onDocumentChanged": "onDocumentChanged",
+        "DocumentSaved":"onDocumentSaved"
       }
     },
     {
