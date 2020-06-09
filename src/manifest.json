@@ -18,13 +18,12 @@
       "script": "./rename-to-style-name.js",
       "shortcut": "cmd shift d",
       "handlers": {
-        "run": "deleteStyleName"   
+        "run": "deleteStyleName"
       }
     }
   ],
   "menu": {
     "title": "sketch-layer-name",
-    "items": ["sketch-layer-name.rename-to-style-name-identifier","sketch-layer-name.delete-style-name-identifier"],
-    "shortcut": ["cmd shift i", "cmd shift d"]
+    "items": ["sketch-layer-name.rename-to-style-name-identifier","sketch-layer-name.delete-style-name-identifier"]
   }
 }
