@@ -3,19 +3,20 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "一键批量重命名（rename-to-style-name）",
+      "name": "一键批量添加图层样式名（insert-style-name）",
       "identifier": "sketch-layer-name.rename-to-style-name-identifier",
       "script": "./rename-to-style-name.js",
-      "shortcut": "cmd shift d",
+      "shortcut": "cmd shift i",
       "handlers": {
         "run": "renameToStyleName",
         "onDocumentChanged": "onDocumentChanged"
       }
     },
     {
-      "name": "一键批量去除重命名（delete-style-name）",
+      "name": "一键批量去除图层样式名（delete-style-name）",
       "identifier": "sketch-layer-name.delete-style-name-identifier",
       "script": "./rename-to-style-name.js",
+      "shortcut": "cmd shift d",
       "handlers": {
         "run": "deleteStyleName"   
       }
@@ -23,7 +24,7 @@
   ],
   "menu": {
     "title": "sketch-layer-name",
-    "items": ["sketch-layer-name.rename-to-style-name-identifier","sketch-layer-name.delete-style-name-identifier","sketch-layer-name.delete-style-name-identifier1"],
-    "shortcut": "cmd shift d"
+    "items": ["sketch-layer-name.rename-to-style-name-identifier","sketch-layer-name.delete-style-name-identifier"],
+    "shortcut": ["cmd shift i", "cmd shift d"]
   }
 }
