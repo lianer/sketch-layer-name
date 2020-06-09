@@ -91,6 +91,7 @@ export const checkLayerNameForDeleteStyleName = function (layer) {
     }
   }
 };
+
 // 删除附加的图层名字  // # core1 #  文本1  =>  //文本1
 export const deletLayerName = function (name) {
   const leftLimit = '# ';
@@ -98,9 +99,7 @@ export const deletLayerName = function (name) {
   const leftIndex = name.indexOf(leftLimit);
   const rightIndex = name.indexOf(rightLimit, leftIndex + 1);
   if (leftIndex > -1 && rightIndex > -1) {
-    return (
-      name.slice(rightIndex + rightLimit.length)
-    );
+    return name.slice(rightIndex + rightLimit.length);
   }
-  return  name;
-}
+  return name;
+};
