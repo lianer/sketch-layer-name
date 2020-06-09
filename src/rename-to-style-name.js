@@ -123,11 +123,6 @@ export function deleteStyleName(context) {
     console.error(e);
   }
 }
-// 监听DocumentSaved 事件 并执行重命名
-export function onDocumentSaved(context){
-  // log('documentsaved',context.actionContext);
-  renameToStyleName(context.actionContext);
-}
 
 // 弃用，监听 ArtboardChanged.begin 事件，并执行重命名
 // export function onArtboardChanged(context) {
